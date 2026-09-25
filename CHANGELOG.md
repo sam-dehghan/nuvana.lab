@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.2] - 2026-09-25
+
+### Changed
+- CLAUDE.md now carries the full project context: stack, working rhythm, the rules that must not be broken, where things live, local setup commands, current state and the open tasks. Previously it only imported AGENTS.md, which `next dev` overwrites.
+
 ## [0.2.1] - 2026-09-25
 
 ### Fixed
