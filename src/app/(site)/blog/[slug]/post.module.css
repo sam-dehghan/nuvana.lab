@@ -1,0 +1,52 @@
+.hero {
+  padding-block: 9.5rem 3.5rem;
+  background: var(--red);
+  color: var(--paper);
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+.title {
+  max-width: 20ch;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+}
+
+.excerpt {
+  max-width: 56ch;
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  opacity: 0.92;
+}
+
+.meta {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.cover {
+  position: relative;
+  aspect-ratio: 16 / 8;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.cover img {
+  object-fit: cover;
+}
+
+.body {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) var(--section);
+  margin-inline: auto;
+  max-width: 68ch;
+}
+
+.cta {
+  margin-top: 3rem;
+}

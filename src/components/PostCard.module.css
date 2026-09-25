@@ -1,0 +1,61 @@
+.card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+  border-radius: var(--radius-lg);
+  background: var(--red);
+}
+
+.media img {
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.card:hover .media img {
+  transform: scale(1.04);
+}
+
+/* Logo motif as the cover when an article has no image. */
+.fallback {
+  position: absolute;
+  inset: -10% -30%;
+  background: var(--red-deep);
+  clip-path: polygon(20% 0, 45% 0, 85% 100%, 60% 100%);
+}
+
+.date {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.title {
+  font-size: 1.3rem;
+}
+
+/* The whole card is clickable through the heading link. */
+.link {
+  text-decoration: none;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.card:hover .link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.excerpt {
+  color: var(--muted);
+}

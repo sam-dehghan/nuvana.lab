@@ -1,0 +1,12 @@
+.hero {
+  padding-block: 10rem 4rem;
+  background: var(--red);
+  color: var(--paper);
+}
+
+.text {
+  max-width: 52ch;
+  margin-top: 1.5rem;
+  font-size: 1.15rem;
+  opacity: 0.92;
+}

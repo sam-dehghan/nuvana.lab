@@ -1,0 +1,12 @@
+const umlauts: Record<string, string> = { ä: "ae", ö: "oe", ü: "ue", ß: "ss" };
+
+export function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .replace(/[äöüß]/g, (c) => umlauts[c] ?? c)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}

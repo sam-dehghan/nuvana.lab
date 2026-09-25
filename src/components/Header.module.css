@@ -1,0 +1,130 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  color: var(--paper);
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    box-shadow 0.25s;
+}
+
+.solid {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 1px 0 rgb(28 21 23 / 0.1);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 4.75rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1.75rem;
+  margin-left: auto;
+}
+
+.link {
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 6px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.cta {
+  min-height: 2.75rem;
+  padding-block: 0.55rem;
+}
+
+.toggle {
+  display: none;
+  margin-left: auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.burger,
+.burger::before,
+.burger::after {
+  display: block;
+  width: 24px;
+  height: 2px;
+  margin-inline: auto;
+  background: currentColor;
+  transition: transform 0.2s;
+}
+
+.burger {
+  position: relative;
+}
+
+.burger::before,
+.burger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.burger::before {
+  top: -7px;
+}
+
+.burger::after {
+  top: 7px;
+}
+
+.burger[data-open="true"] {
+  background: transparent;
+}
+
+.burger[data-open="true"]::before {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger[data-open="true"]::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile {
+  background: var(--paper);
+  border-top: 1px solid rgb(28 21 23 / 0.1);
+}
+
+.mobile nav {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 1.5rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.mobile a:not(:global(.button)) {
+  text-decoration: none;
+}
+
+@media (max-width: 860px) {
+  .bar .nav,
+  .bar .cta {
+    display: none;
+  }
+  .toggle {
+    display: block;
+  }
+}
+
+@media (min-width: 861px) {
+  .mobile {
+    display: none;
+  }
+}

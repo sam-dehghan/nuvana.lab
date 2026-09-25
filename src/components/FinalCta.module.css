@@ -1,0 +1,36 @@
+.section {
+  padding-block: var(--section);
+}
+
+.box {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+  border-radius: var(--radius-lg);
+  background: var(--red);
+  color: var(--paper);
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% -20% 55%;
+  background: var(--red-deep);
+  transform: skewX(-38deg);
+  z-index: 0;
+}
+
+.box > * {
+  position: relative;
+}
+
+.box h2 {
+  max-width: 16ch;
+}
+
+.text {
+  max-width: 50ch;
+  margin-block: 1.5rem 2.5rem;
+  font-size: 1.125rem;
+  opacity: 0.92;
+}

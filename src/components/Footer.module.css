@@ -1,0 +1,54 @@
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding-block: 4rem 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.grid > div {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+
+.grid a {
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.grid a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.heading {
+  font-family: var(--body);
+  font-stretch: 100%;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 0.5rem;
+  color: rgb(230 231 233 / 0.6);
+}
+
+.copy {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(230 231 233 / 0.15);
+  font-size: 0.875rem;
+  opacity: 0.6;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid > :first-child {
+    grid-column: 1 / -1;
+  }
+}

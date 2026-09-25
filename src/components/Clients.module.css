@@ -1,0 +1,63 @@
+.title {
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--white);
+  outline-offset: 3px;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition:
+    opacity 0.35s,
+    transform 0.35s;
+}
+
+.face img {
+  object-fit: cover;
+}
+
+.logo {
+  width: auto;
+  max-height: 60%;
+  object-fit: contain;
+}
+
+.back {
+  background: var(--red);
+  color: var(--paper);
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+.tile:hover .back,
+.tile:focus-visible .back {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
