@@ -3,15 +3,15 @@ import { team } from "@/content/site";
 import { PlaceholderBadge } from "./PlaceholderBadge";
 import styles from "./Team.module.css";
 
-function GalleryRow({ reverse }: { reverse?: boolean }) {
+function ReelRow() {
   // Rendered twice so the loop is seamless; the copy is hidden from assistive tech.
-  const items = [...team.gallery, ...team.gallery];
+  const items = [...team.gallery.reels, ...team.gallery.reels];
   return (
     <div className={styles.row} aria-hidden="true">
-      <ul className={`${styles.track} ${reverse ? styles.reverse : ""}`}>
+      <ul className={styles.track}>
         {items.map((img, i) => (
-          <li key={i} className={`${styles.shot} ${img.placeholder ? "placeholder" : ""}`}>
-            {img.src ? <Image src={img.src} alt="" fill sizes="320px" /> : <PlaceholderBadge show />}
+          <li key={i} className={`${styles.reel} ${img.placeholder ? "placeholder" : ""}`}>
+            {img.src ? <Image src={img.src} alt="" fill sizes="240px" /> : <PlaceholderBadge show />}
           </li>
         ))}
       </ul>
@@ -44,9 +44,17 @@ export function Team() {
           ))}
         </ul>
       </div>
+      <div className={`container ${styles.tiles}`}>
+        {team.gallery.tiles.map((tile) => (
+          <div key={tile.label} className={`${styles.tile} ${tile.placeholder ? "placeholder" : ""}`}>
+            {tile.src ? <Image src={tile.src} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" /> : <PlaceholderBadge show />}
+            <span className={styles.tileLabel}>{tile.label}</span>
+          </div>
+        ))}
+      </div>
+      <p className={`container ${styles.reelsLabel}`}>{team.gallery.reelsLabel}</p>
       <div className={styles.gallery}>
-        <GalleryRow />
-        <GalleryRow reverse />
+        <ReelRow />
       </div>
     </section>
   );

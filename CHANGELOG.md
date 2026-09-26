@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.7] - 2026-09-26
+
+### Added
+- Three still tiles above the work gallery, each 16:9 with its own label, for the kinds of work the studio shows.
+- A small uppercase label above the moving row.
+- The moving row fades out at both edges, using a 12% mask on each side, so the loop no longer ends in a hard vertical line.
+
+### Changed
+- The gallery is now one moving row of vertical 9:16 stills instead of two rows of 3:2 landscape ones. Social video is shot vertically, and the cards grew from 139px to about 320px tall, so the stills are legible rather than decorative.
+- `team.gallery` is now an object with `tiles`, `reelsLabel` and `reels` instead of a flat list of images. The three tile labels are placeholders until they are confirmed.
+- The rows hold still for visitors who prefer reduced motion, matching how the System blocks and the hero mesh already behave, and declare `will-change: transform` to keep the animation on the compositor.
+
+### Removed
+- The second, reversed gallery row, along with the `.reverse` rule that drove it.
+
 ## [0.2.6] - 2026-09-26
 
 ### Changed
