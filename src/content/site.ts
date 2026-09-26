@@ -84,8 +84,18 @@ export const team = {
       placeholder: true,
     },
   ],
-  /** Behind-the-scenes photos for the two moving rows. */
-  gallery: Array.from({ length: 6 }, () => ({ src: null as string | null, placeholder: true })),
+  gallery: {
+    /** Three still categories above the moving row. Labels are placeholders until confirmed. */
+    tiles: [
+      { label: "Markenfilm", src: null as string | null, placeholder: true },
+      { label: "Personal Branding", src: null as string | null, placeholder: true },
+      { label: "Kundenstimmen", src: null as string | null, placeholder: true },
+    ],
+    /** Small label above the moving row. */
+    reelsLabel: "Social Content",
+    /** Vertical 9:16 stills for the moving row. */
+    reels: Array.from({ length: 8 }, () => ({ src: null as string | null, placeholder: true })),
+  },
 };
 
 export const testimonials = {
