@@ -1,4 +1,8 @@
 .header {
+  /* The header runs wider and tighter to the edges than .container, so the nav,
+     the admin icon and the CTA all fit on one line. */
+  --header-max: 1440px;
+  --header-gutter: clamp(1rem, 2.5vw, 2rem);
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
@@ -18,13 +22,25 @@
 .bar {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  /* Tight at the 960px breakpoint where space is scarcest, roomier on wide screens. */
+  gap: clamp(1rem, 1.5vw, 2rem);
   min-height: 4.75rem;
+  width: 100%;
+  max-width: var(--header-max);
+  margin-inline: auto;
+  padding-inline: var(--header-gutter);
+  /* Inherited by the logo, the links and the CTA: labels stay on one line. */
+  white-space: nowrap;
+}
+
+/* Without this, flex shrinks the items until their labels break mid-word. */
+.bar > * {
+  flex-shrink: 0;
 }
 
 .nav {
   display: flex;
-  gap: 1.75rem;
+  gap: clamp(1rem, 1.2vw, 1.75rem);
   margin-left: auto;
 }
 
@@ -127,6 +143,10 @@
 .mobile nav {
   display: grid;
   gap: 1.25rem;
+  width: 100%;
+  max-width: var(--header-max);
+  margin-inline: auto;
+  padding-inline: var(--header-gutter);
   padding-block: 1.5rem 2rem;
   font-size: 1.25rem;
   font-weight: 700;
@@ -136,7 +156,7 @@
   text-decoration: none;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 959px) {
   .bar .nav,
   .bar .cta,
   .bar .adminLink {
@@ -147,7 +167,7 @@
   }
 }
 
-@media (min-width: 861px) {
+@media (min-width: 960px) {
   .mobile {
     display: none;
   }
