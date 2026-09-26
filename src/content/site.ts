@@ -87,14 +87,21 @@ export const team = {
   gallery: {
     /** Three still categories above the moving row. Labels are placeholders until confirmed. */
     tiles: [
-      { label: "Markenfilm", src: null as string | null, placeholder: true },
-      { label: "Personal Branding", src: null as string | null, placeholder: true },
-      { label: "Kundenstimmen", src: null as string | null, placeholder: true },
+      { label: "Markenfilm", src: null as string | null, video: null as string | null, placeholder: true },
+      { label: "Personal Branding", src: null as string | null, video: null as string | null, placeholder: true },
+      { label: "Kundenstimmen", src: null as string | null, video: null as string | null, placeholder: true },
     ],
     /** Small label above the moving row. */
     reelsLabel: "Social Content",
-    /** Vertical 9:16 stills for the moving row. */
-    reels: Array.from({ length: 8 }, () => ({ src: null as string | null, placeholder: true })),
+    /**
+     * Vertical 9:16 cells for the moving row. `video` is a muted clip in /public,
+     * `src` the still shown before it loads or on its own when there is no clip.
+     */
+    reels: Array.from({ length: 8 }, () => ({
+      src: null as string | null,
+      video: null as string | null,
+      placeholder: true,
+    })),
   },
 };
 

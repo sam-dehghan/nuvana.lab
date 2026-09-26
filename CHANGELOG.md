@@ -5,6 +5,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 ## [0.2.7] - 2026-09-26
 
 ### Added
+- The gallery cells take video. Each tile and each reel accepts a `video` path to a muted clip in `/public`, with `src` serving as the poster shown while it loads or on its own when there is no clip. Playback is started from an effect rather than the `autoplay` attribute, so a visitor who prefers reduced motion never sees a frame move.
 - Three still tiles above the work gallery, each 16:9 with its own label, for the kinds of work the studio shows.
 - A small uppercase label above the moving row.
 - The moving row fades out at both edges, using a 12% mask on each side, so the loop no longer ends in a hard vertical line.
