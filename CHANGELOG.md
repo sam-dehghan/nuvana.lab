@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.3] - 2026-09-26
+
+### Fixed
+- "Das System": the ring diagram no longer escapes its section on viewports narrower than 900px. The mobile breakpoint set `.diagram` to `position: static`, which removed the containing block that the rings, the ring labels and the "Deine Marke" core position against, so they were laid out against the page and appeared over the hero. The breakpoint now uses `position: relative` and resets `top` to `0`: `relative` restores the positioning context, and the reset cancels the `top: 7rem` sticky offset from the desktop rule, which would otherwise push the diagram down over the text blocks.
+
 ## [0.2.2] - 2026-09-25
 
 ### Changed
