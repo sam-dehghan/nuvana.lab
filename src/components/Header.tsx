@@ -31,7 +31,7 @@ export function Header() {
       <a href="#inhalt" className="sr-only">
         Zum Inhalt springen
       </a>
-      <div className={`container ${styles.bar}`}>
+      <div className={styles.bar}>
         <Logo />
         <nav aria-label="Hauptnavigation" className={styles.nav}>
           {nav.map((item) => (
@@ -58,7 +58,7 @@ export function Header() {
         </button>
       </div>
       <div id="mobile-menu" className={styles.mobile} hidden={!open}>
-        <nav aria-label="Mobile Navigation" className="container">
+        <nav aria-label="Mobile Navigation">
           {nav.map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
               {item.label}

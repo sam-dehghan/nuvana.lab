@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.5] - 2026-09-26
+
+### Fixed
+- Header: the navigation no longer wraps onto two lines. The bar needed about 965px but the shared `.container` only gave it 1144px at most and far less on narrower screens, so between 861px and 1049px flex squeezed the items until "Das System" and the call to action broke mid-label.
+
+### Changed
+- The header now sizes itself instead of using `.container`: it runs up to 1440px with a tighter gutter, so it reaches closer to the edges than the page sections do. Its gaps scale with the viewport, tight where space is scarce and roomier on wide screens, and the labels are set to `nowrap` with the bar items no longer allowed to shrink.
+- The burger menu now takes over below 960px instead of below 860px. The desktop bar needs about 881px and only had roughly 818px at 861px, so the old breakpoint left a band where it could not fit; no common tablet sits in 861-959px in portrait, and those sizes are mostly resized desktop windows.
+
 ## [0.2.4] - 2026-09-26
 
 ### Added
