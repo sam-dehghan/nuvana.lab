@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.4] - 2026-09-26
+
+### Added
+- Admin entry point in the header: a padlock icon next to the main call to action links to the password-protected admin area, so the blog and FAQ editors are reachable without typing the URL. Below 860px the icon is replaced by an "Admin" link in the burger menu, matching how the navigation and the call to action already behave. The link carries `rel="nofollow"`, and the admin pages remain `noindex`.
+
 ## [0.2.3] - 2026-09-26
 
 ### Fixed
