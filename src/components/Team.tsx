@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { team } from "@/content/site";
+import { GalleryMedia } from "./GalleryMedia";
 import { PlaceholderBadge } from "./PlaceholderBadge";
 import styles from "./Team.module.css";
 
@@ -11,7 +12,11 @@ function ReelRow() {
       <ul className={styles.track}>
         {items.map((img, i) => (
           <li key={i} className={`${styles.reel} ${img.placeholder ? "placeholder" : ""}`}>
-            {img.src ? <Image src={img.src} alt="" fill sizes="240px" /> : <PlaceholderBadge show />}
+            {img.src || img.video ? (
+              <GalleryMedia video={img.video} src={img.src} sizes="240px" />
+            ) : (
+              <PlaceholderBadge show />
+            )}
           </li>
         ))}
       </ul>
@@ -47,7 +52,11 @@ export function Team() {
       <div className={`container ${styles.tiles}`}>
         {team.gallery.tiles.map((tile) => (
           <div key={tile.label} className={`${styles.tile} ${tile.placeholder ? "placeholder" : ""}`}>
-            {tile.src ? <Image src={tile.src} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" /> : <PlaceholderBadge show />}
+            {tile.src || tile.video ? (
+              <GalleryMedia video={tile.video} src={tile.src} sizes="(max-width: 700px) 100vw, 33vw" />
+            ) : (
+              <PlaceholderBadge show />
+            )}
             <span className={styles.tileLabel}>{tile.label}</span>
           </div>
         ))}
