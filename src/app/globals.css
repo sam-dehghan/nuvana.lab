@@ -9,8 +9,10 @@
 
   --radius: 14px;
   --radius-lg: 28px;
-  --gutter: clamp(1.25rem, 4vw, 3rem);
-  --max: 1240px;
+  /* Matches the header, so every section lines up with the logo and the CTA.
+     The lower bound keeps a comfortable side margin on phones. */
+  --gutter: clamp(1.25rem, 2.5vw, 2rem);
+  --max: 1440px;
   --section: clamp(4.5rem, 10vw, 8.5rem);
 
   --display: var(--font-archivo), "Arial Narrow", Arial, sans-serif;

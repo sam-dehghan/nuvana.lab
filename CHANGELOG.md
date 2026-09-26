@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.6] - 2026-09-26
+
+### Changed
+- Page sections now line up with the header. `--max` goes from 1240px to 1440px and `--gutter` adopts the header's `clamp(1.25rem, 2.5vw, 2rem)`, so the hero eyebrow, headline and intro start at the same left edge as the logo and end level with the call to action. Previously the header sat 116px wider on each side than every `.container`, which read as a misalignment at the top of the page.
+- The header no longer carries its own width tokens; it uses `--max` and `--gutter` like everything else, so the two can no longer drift apart. Its own sizing is unchanged: the gutter already resolved to the same value at the 960px breakpoint, so the navigation keeps the same 16px of slack there.
+- The gutter's lower bound stays at 1.25rem, so side margins on phones are unchanged at 20px.
+
 ## [0.2.5] - 2026-09-26
 
 ### Fixed
