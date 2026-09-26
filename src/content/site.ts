@@ -21,6 +21,9 @@ export const nav = [
 
 export const cta = { label: "Kostenloses Erstgespräch", href: "/kontakt" };
 
+/** Entry point to the password-protected admin area (blog and FAQ editing). */
+export const admin = { label: "Admin", href: "/admin" };
+
 export const hero = {
   eyebrow: "Branding & Personal Branding aus Düsseldorf",
   title: "Wir machen aus Menschen und Unternehmen Marken, die man wiedererkennt",

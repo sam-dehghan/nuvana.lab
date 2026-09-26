@@ -43,6 +43,29 @@
   padding-block: 0.55rem;
 }
 
+/* Discreet entry to the admin area. Inherits the bar's colour so it flips with .solid. */
+.adminLink {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: -0.5rem;
+  color: inherit;
+  opacity: 0.65;
+  transition: opacity 0.2s;
+}
+
+.adminLink:hover,
+.adminLink:focus-visible {
+  opacity: 1;
+}
+
+.adminMobile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .toggle {
   display: none;
   margin-left: auto;
@@ -115,7 +138,8 @@
 
 @media (max-width: 860px) {
   .bar .nav,
-  .bar .cta {
+  .bar .cta,
+  .bar .adminLink {
     display: none;
   }
   .toggle {
