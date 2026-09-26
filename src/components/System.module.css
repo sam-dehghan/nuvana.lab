@@ -142,7 +142,11 @@
     grid-template-columns: 1fr;
   }
   .diagram {
-    position: static;
+    /* relative (not static) keeps the containing block the rings position against;
+       top is reset because the sticky offset above would otherwise shift the
+       diagram down over the text blocks. */
+    position: relative;
+    top: 0;
     max-width: 340px;
     margin-inline: auto;
   }
