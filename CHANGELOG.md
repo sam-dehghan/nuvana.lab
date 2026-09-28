@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.8] - 2026-09-29
+
+### Added
+- Galerie section in the admin: add, edit, reorder and delete the three tiles and the reels, and upload a video or a poster for each. New "Galerie" tab beside Blog and FAQ.
+- Media uploads go to Supabase Storage over the S3 protocol. The server signs a short-lived PUT url and the browser uploads straight to Supabase, so a file never passes through Vercel and is not bound by the ~4.5 MB limit on server action bodies.
+- `gallery` table, seeded on first migration with the three tiles and eight reels the section shipped with, so nothing disappears.
+
+### Changed
+- The gallery reads from the database instead of `src/content/site.ts`, which is what makes it editable without a deploy. It still falls back to the built-in placeholders when the database is unreachable, the same way the FAQ does.
+- Deleting a gallery entry also removes its files from the bucket, so uploads do not accumulate as orphans.
+
 ## [0.2.7] - 2026-09-26
 
 ### Added
