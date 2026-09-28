@@ -1,8 +1,18 @@
 import "server-only";
 import faqSeed from "@/content/faq-seed.json";
+import { team } from "@/content/site";
 import { hasDb, query } from "./db";
 
 export type Faq = { id: number; question: string; answer: string; position: number };
+
+export type GalleryItem = {
+  id: number;
+  kind: "tile" | "reel";
+  label: string;
+  src: string | null;
+  video: string | null;
+  position: number;
+};
 
 export type Post = {
   id: number;
@@ -18,6 +28,26 @@ export type Post = {
 
 const seedFaq: Faq[] = faqSeed.map((f, i) => ({ id: -(i + 1), position: i, ...f }));
 
+/** Mirrors the placeholders in site.ts, used when there is no database. */
+const seedGallery: GalleryItem[] = [
+  ...team.gallery.tiles.map((t, i) => ({
+    id: -(i + 1),
+    kind: "tile" as const,
+    label: t.label,
+    src: t.src,
+    video: t.video,
+    position: i,
+  })),
+  ...team.gallery.reels.map((r, i) => ({
+    id: -(100 + i),
+    kind: "reel" as const,
+    label: "",
+    src: r.src,
+    video: r.video,
+    position: i,
+  })),
+];
+
 /** Public reads fall back to safe defaults so the site still renders without a database. */
 async function safely<T>(fallback: T, read: () => Promise<T>): Promise<T> {
   if (!hasDb) return fallback;
@@ -32,6 +62,14 @@ async function safely<T>(fallback: T, read: () => Promise<T>): Promise<T> {
 export function getFaq(): Promise<Faq[]> {
   return safely(seedFaq, () =>
     query<Faq>("SELECT id, question, answer, position FROM faq ORDER BY position, id"),
+  );
+}
+
+export function getGallery(): Promise<GalleryItem[]> {
+  return safely(seedGallery, () =>
+    query<GalleryItem>(
+      "SELECT id, kind, label, src, video, position FROM gallery ORDER BY kind DESC, position, id",
+    ),
   );
 }
 
@@ -62,4 +100,10 @@ export async function getPostById(id: number): Promise<Post | null> {
 
 export function getAllFaq(): Promise<Faq[]> {
   return query<Faq>("SELECT id, question, answer, position FROM faq ORDER BY position, id");
+}
+
+export function getAllGallery(): Promise<GalleryItem[]> {
+  return query<GalleryItem>(
+    "SELECT id, kind, label, src, video, position FROM gallery ORDER BY kind DESC, position, id",
+  );
 }

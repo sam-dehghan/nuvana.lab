@@ -29,6 +29,19 @@ try {
     }
     console.log(`Seeded ${seed.length} FAQ entries.`);
   }
+  const { rows: gal } = await client.query("SELECT count(*)::int AS n FROM gallery");
+  if (gal[0].n === 0) {
+    // Mirrors the placeholders the gallery shipped with, so nothing disappears on first migrate.
+    const tiles = ["Markenfilm", "Personal Branding", "Kundenstimmen"];
+    for (const [i, label] of tiles.entries()) {
+      await client.query("INSERT INTO gallery (kind, label, position) VALUES ('tile', $1, $2)", [label, i]);
+    }
+    for (let i = 0; i < 8; i++) {
+      await client.query("INSERT INTO gallery (kind, position) VALUES ('reel', $1)", [i]);
+    }
+    console.log(`Seeded ${tiles.length} gallery tiles and 8 reels.`);
+  }
+
   console.log("Database is up to date.");
 } finally {
   await client.end();

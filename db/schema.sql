@@ -29,3 +29,16 @@ CREATE TABLE IF NOT EXISTS login_attempts (
 );
 
 CREATE INDEX IF NOT EXISTS login_attempts_ip_idx ON login_attempts (ip, created_at);
+
+CREATE TABLE IF NOT EXISTS gallery (
+  id         SERIAL PRIMARY KEY,
+  kind       TEXT NOT NULL CHECK (kind IN ('tile', 'reel')),
+  label      TEXT NOT NULL DEFAULT '',
+  src        TEXT,
+  video      TEXT,
+  position   INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS gallery_kind_idx ON gallery (kind, position);

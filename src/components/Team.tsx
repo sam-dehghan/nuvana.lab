@@ -1,17 +1,23 @@
 import Image from "next/image";
 import { team } from "@/content/site";
+import { getGallery, type GalleryItem } from "@/lib/content";
+import { GalleryMedia } from "./GalleryMedia";
 import { PlaceholderBadge } from "./PlaceholderBadge";
 import styles from "./Team.module.css";
 
-function ReelRow() {
+function ReelRow({ reels }: { reels: GalleryItem[] }) {
   // Rendered twice so the loop is seamless; the copy is hidden from assistive tech.
-  const items = [...team.gallery.reels, ...team.gallery.reels];
+  const items = [...reels, ...reels];
   return (
     <div className={styles.row} aria-hidden="true">
       <ul className={styles.track}>
         {items.map((img, i) => (
-          <li key={i} className={`${styles.reel} ${img.placeholder ? "placeholder" : ""}`}>
-            {img.src ? <Image src={img.src} alt="" fill sizes="240px" /> : <PlaceholderBadge show />}
+          <li key={i} className={`${styles.reel} ${!img.src && !img.video ? "placeholder" : ""}`}>
+            {img.src || img.video ? (
+              <GalleryMedia video={img.video} src={img.src} sizes="240px" />
+            ) : (
+              <PlaceholderBadge show />
+            )}
           </li>
         ))}
       </ul>
@@ -19,7 +25,10 @@ function ReelRow() {
   );
 }
 
-export function Team() {
+export async function Team() {
+  const gallery = await getGallery();
+  const tiles = gallery.filter((g) => g.kind === "tile");
+  const reels = gallery.filter((g) => g.kind === "reel");
   return (
     <section className="section" aria-labelledby="team-title">
       <div className="container">
@@ -45,16 +54,20 @@ export function Team() {
         </ul>
       </div>
       <div className={`container ${styles.tiles}`}>
-        {team.gallery.tiles.map((tile) => (
-          <div key={tile.label} className={`${styles.tile} ${tile.placeholder ? "placeholder" : ""}`}>
-            {tile.src ? <Image src={tile.src} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" /> : <PlaceholderBadge show />}
+        {tiles.map((tile) => (
+          <div key={tile.id} className={`${styles.tile} ${!tile.src && !tile.video ? "placeholder" : ""}`}>
+            {tile.src || tile.video ? (
+              <GalleryMedia video={tile.video} src={tile.src} sizes="(max-width: 700px) 100vw, 33vw" />
+            ) : (
+              <PlaceholderBadge show />
+            )}
             <span className={styles.tileLabel}>{tile.label}</span>
           </div>
         ))}
       </div>
       <p className={`container ${styles.reelsLabel}`}>{team.gallery.reelsLabel}</p>
       <div className={styles.gallery}>
-        <ReelRow />
+        <ReelRow reels={reels} />
       </div>
     </section>
   );
