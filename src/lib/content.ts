@@ -1,6 +1,6 @@
 import "server-only";
 import faqSeed from "@/content/faq-seed.json";
-import { team } from "@/content/site";
+import { clients, team } from "@/content/site";
 import { hasDb, query } from "./db";
 
 export type Faq = { id: number; question: string; answer: string; position: number };
@@ -11,6 +11,16 @@ export type GalleryItem = {
   label: string;
   src: string | null;
   video: string | null;
+  position: number;
+};
+
+export type Client = {
+  id: number;
+  name: string;
+  logo: string | null;
+  photo: string | null;
+  /** Percent of the default logo size. */
+  scale: number;
   position: number;
 };
 
@@ -27,6 +37,15 @@ export type Post = {
 };
 
 const seedFaq: Faq[] = faqSeed.map((f, i) => ({ id: -(i + 1), position: i, ...f }));
+
+const seedClients: Client[] = clients.items.map((c, i) => ({
+  id: -(i + 1),
+  name: c.name,
+  logo: c.logo,
+  photo: c.photo,
+  scale: 100,
+  position: i,
+}));
 
 /** Mirrors the placeholders in site.ts, used when there is no database. */
 const seedGallery: GalleryItem[] = [
@@ -73,6 +92,12 @@ export function getGallery(): Promise<GalleryItem[]> {
   );
 }
 
+export function getClients(): Promise<Client[]> {
+  return safely(seedClients, () =>
+    query<Client>("SELECT id, name, logo, photo, scale, position FROM clients ORDER BY position, id"),
+  );
+}
+
 export function getPublishedPosts(limit = 100): Promise<Post[]> {
   return safely([], () =>
     query<Post>("SELECT * FROM posts WHERE published ORDER BY published_at DESC NULLS LAST, id DESC LIMIT $1", [
@@ -106,4 +131,8 @@ export function getAllGallery(): Promise<GalleryItem[]> {
   return query<GalleryItem>(
     "SELECT id, kind, label, src, video, position FROM gallery ORDER BY kind DESC, position, id",
   );
+}
+
+export function getAllClients(): Promise<Client[]> {
+  return query<Client>("SELECT id, name, logo, photo, scale, position FROM clients ORDER BY position, id");
 }
