@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.2.9] - 2026-10-01
+
+### Added
+- Kunden section in the admin: upload a logo and a project photo for each holder under "Marken, mit denen wir arbeiten", rename them, reorder and delete. New "Kunden" tab beside Blog, FAQ and Galerie.
+- Each logo has its own size, 40% to 160% of the default, with a live preview in the real tile shape so the mark can be nudged until it sits right. Logos differ enormously in proportion: a wide wordmark filled 84% of the tile while a square mark reached only 34%.
+- `clients` table, seeded on first migration with the eight holders the section shipped with.
+
+### Fixed
+- A logo is no longer forced into a 2:1 box. The markup hard-coded `width={200} height={100}`, which imposed that ratio on every logo whatever its real shape; the logo now sits in a box that carries the size while the image keeps its own proportions. A scaled-up mark is also held inside the tile instead of clipping.
+
+### Changed
+- The client tiles read from the database instead of `src/content/site.ts`, and still fall back to the built-in placeholders when the database is unreachable.
+- Deleting a holder removes its logo and photo from the bucket, so uploads do not accumulate as orphans.
+
 ## [0.2.8] - 2026-09-29
 
 ### Added

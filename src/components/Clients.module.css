@@ -37,9 +37,16 @@
   object-fit: cover;
 }
 
+/* The box carries the size; the logo just fits inside it, whatever its shape.
+   --logo-scale is set per tile from the admin, 1 = the default size. min() keeps
+   a scaled-up mark inside the tile instead of letting it clip. */
+.logoBox {
+  position: relative;
+  width: min(100%, calc(100% * var(--logo-scale, 1)));
+  height: min(100%, calc(60% * var(--logo-scale, 1)));
+}
+
 .logo {
-  width: auto;
-  max-height: 60%;
   object-fit: contain;
 }
 

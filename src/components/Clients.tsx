@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { clients } from "@/content/site";
+import { getClients } from "@/lib/content";
 import { PlaceholderBadge } from "./PlaceholderBadge";
 import styles from "./Clients.module.css";
 
-export function Clients() {
+export async function Clients() {
+  const items = await getClients();
+
   return (
     <section className="section" aria-labelledby="clients-title">
       <div className="container">
@@ -12,12 +15,20 @@ export function Clients() {
         </h2>
         <p className="lead">{clients.text}</p>
         <ul className={styles.grid}>
-          {clients.items.map((c) => (
-            <li key={c.name} className={`${styles.tile} ${c.placeholder ? "placeholder" : ""}`} tabIndex={0}>
-              <PlaceholderBadge show={c.placeholder} />
+          {items.map((c) => (
+            <li
+              key={c.id}
+              className={`${styles.tile} ${!c.logo && !c.photo ? "placeholder" : ""}`}
+              tabIndex={0}
+              // Each mark gets its own size, so wide wordmarks and square marks can both sit right.
+              style={{ "--logo-scale": c.scale / 100 } as React.CSSProperties}
+            >
+              <PlaceholderBadge show={!c.logo && !c.photo} />
               <div className={styles.face}>
                 {c.logo ? (
-                  <Image src={c.logo} alt={c.name} width={200} height={100} className={styles.logo} />
+                  <div className={styles.logoBox}>
+                    <Image src={c.logo} alt={c.name} fill sizes="(max-width: 700px) 50vw, 25vw" className={styles.logo} />
+                  </div>
                 ) : (
                   <span>Logo folgt</span>
                 )}
