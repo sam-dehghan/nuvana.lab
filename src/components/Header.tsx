@@ -7,15 +7,7 @@ import { Logo } from "./Logo";
 import styles from "./Header.module.css";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -24,10 +16,8 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const solid = scrolled || open;
-
   return (
-    <header className={`${styles.header} ${solid ? styles.solid : ""}`}>
+    <header className={styles.header}>
       <a href="#inhalt" className="sr-only">
         Zum Inhalt springen
       </a>
@@ -43,7 +33,7 @@ export function Header() {
         <Link href={admin.href} className={styles.adminLink} aria-label="Admin-Bereich" rel="nofollow">
           <LockIcon />
         </Link>
-        <Link href={cta.href} className={`button ${solid ? "button-red" : "button-paper"} ${styles.cta}`}>
+        <Link href={cta.href} className={`button button-paper ${styles.cta}`}>
           {cta.label}
         </Link>
         <button
@@ -64,7 +54,7 @@ export function Header() {
               {item.label}
             </Link>
           ))}
-          <Link href={cta.href} className="button button-red" onClick={() => setOpen(false)}>
+          <Link href={cta.href} className="button button-paper" onClick={() => setOpen(false)}>
             {cta.label}
           </Link>
           <Link
@@ -82,7 +72,7 @@ export function Header() {
   );
 }
 
-/** Small padlock, inherits the header's current colour so it flips with the solid state. */
+/** Small padlock, inherits the header's colour, which is paper in both states. */
 function LockIcon() {
   return (
     <svg

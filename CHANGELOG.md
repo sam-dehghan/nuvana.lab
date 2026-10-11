@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.3.1] - 2026-10-11
+
+### Changed
+- The header is a floating pane of glass: a pill inset from the edges, 14px radius, `rgb(28 21 23 / 0.52)` behind an 18px blur, so the page shows through it softened. Dark rather than a white film, because the labels are paper and the page behind the bar is light for most of its length.
+- It rides at the top of the page and scrolls away with it instead of staying fixed, the way august.productions does. A negative bottom margin equal to its height keeps the hero running underneath, so the bar floats on the hero rather than sitting below a band of page background.
+- The call to action is always the paper button now; the red one existed only for the white bar that is gone.
+
+### Removed
+- The scroll listener and the solid state it drove. Nothing pins any more, so nothing needed to watch the scroll position.
+
 ## [0.3.0] - 2026-10-11
 
 ### Changed
