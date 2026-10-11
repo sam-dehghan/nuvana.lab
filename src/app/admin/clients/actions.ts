@@ -21,6 +21,7 @@ const schema = z.object({
   logo: z.string().trim().max(1000),
   photo: z.string().trim().max(1000),
   scale: z.coerce.number().int().min(40).max(160),
+  size: z.enum(["small", "wide", "tall"]),
 });
 
 export async function saveClient(_prev: ClientState, formData: FormData): Promise<ClientState> {
@@ -31,12 +32,13 @@ export async function saveClient(_prev: ClientState, formData: FormData): Promis
     logo: formData.get("logo") ?? "",
     photo: formData.get("photo") ?? "",
     scale: formData.get("scale") ?? 100,
+    size: formData.get("size") ?? "small",
   });
   if (!parsed.success) return { error: parsed.error.issues[0]?.message };
   const d = parsed.data;
   await query(
-    "UPDATE clients SET name = $1, logo = $2, photo = $3, scale = $4, updated_at = now() WHERE id = $5",
-    [d.name, d.logo || null, d.photo || null, d.scale, d.id],
+    "UPDATE clients SET name = $1, logo = $2, photo = $3, scale = $4, size = $5, updated_at = now() WHERE id = $6",
+    [d.name, d.logo || null, d.photo || null, d.scale, d.size, d.id],
   );
   refresh();
   return {};

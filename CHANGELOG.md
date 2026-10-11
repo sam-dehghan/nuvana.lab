@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.3.0] - 2026-10-11
+
+### Changed
+- The client tiles now show the project still behind the logo instead of hiding it on the back of a flip. A 70% black veil darkens the still so the logo reads; hovering or focusing a tile clears the veil and fades the logo out, showing the work in its own colour.
+- The row is a twelve column dense grid with 12px gaps, and each holder picks its own format: small (3 columns), wide (6 columns) or tall (3 columns, double height). Dense flow lets later tiles fill the gaps a wide one leaves. Four columns and 10px gaps below 700px.
+- Tiles are dark with a 6px radius and a hairline light border, so they read as a contact sheet on the light section rather than as white cards.
+
+### Added
+- Kachelformat control per holder in the admin, and a `size` column on `clients` to store it.
+
 ## [0.2.9] - 2026-10-01
 
 ### Added

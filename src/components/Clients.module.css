@@ -2,10 +2,12 @@
   margin-bottom: 1rem;
 }
 
+/* A 12 column dense grid, so tiles of different widths close each other's gaps. */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-flow: dense;
+  gap: 12px;
   margin: 3rem 0 0;
   padding: 0;
   list-style: none;
@@ -13,58 +15,101 @@
 
 .tile {
   position: relative;
-  aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--white);
+  border-radius: 6px;
+  border: 1px solid rgb(230 231 233 / 0.12);
+  background: var(--ink);
   outline-offset: 3px;
 }
 
-.face {
+.small {
+  grid-column: span 3;
+  height: 130px;
+}
+
+.wide {
+  grid-column: span 6;
+  height: 130px;
+}
+
+.tall {
+  grid-column: span 3;
+  height: 272px;
+}
+
+.shot {
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* The darkening. Clears on hover so the still shows in its own colour. */
+.veil {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  background: rgb(0 0 0 / 0.7);
+  transition: opacity 0.35s;
+}
+
+.logoBox {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
   display: grid;
   place-items: center;
-  padding: 1.5rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition:
-    opacity 0.35s,
-    transform 0.35s;
-}
-
-.face img {
-  object-fit: cover;
-}
-
-/* The box carries the size; the logo just fits inside it, whatever its shape.
-   --logo-scale is set per tile from the admin, 1 = the default size. min() keeps
-   a scaled-up mark inside the tile instead of letting it clip. */
-.logoBox {
-  position: relative;
-  width: min(100%, calc(100% * var(--logo-scale, 1)));
-  height: min(100%, calc(60% * var(--logo-scale, 1)));
+  padding: 1.25rem;
+  transition: opacity 0.35s;
 }
 
 .logo {
   object-fit: contain;
+  /* --logo-scale is set per tile from the admin, 1 = the default size. */
+  width: min(100%, calc(100% * var(--logo-scale, 1))) !important;
+  height: min(100%, calc(70% * var(--logo-scale, 1))) !important;
+  position: relative !important;
+  inset: auto !important;
 }
 
-.back {
-  background: var(--red);
-  color: var(--paper);
+.fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  color: rgb(230 231 233 / 0.75);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Only reveal where there is something to reveal. */
+.tile:has(.shot):hover .veil,
+.tile:has(.shot):focus-visible .veil,
+.tile:has(.shot):hover .logoBox,
+.tile:has(.shot):focus-visible .logoBox {
   opacity: 0;
-  transform: scale(1.06);
-}
-
-.tile:hover .back,
-.tile:focus-visible .back {
-  opacity: 1;
-  transform: none;
 }
 
 @media (max-width: 700px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .small,
+  .wide {
+    grid-column: span 2;
+    height: 110px;
+  }
+  .tall {
+    grid-column: span 2;
+    height: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .veil,
+  .logoBox {
+    transition: none;
   }
 }

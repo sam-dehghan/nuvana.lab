@@ -50,9 +50,14 @@ CREATE TABLE IF NOT EXISTS clients (
   photo      TEXT,
   -- Percent of the default logo size, so each mark can be nudged until it sits right.
   scale      INTEGER NOT NULL DEFAULT 100 CHECK (scale BETWEEN 40 AND 160),
+  -- How many columns the tile spans and how tall it is.
+  size       TEXT NOT NULL DEFAULT 'small' CHECK (size IN ('small', 'wide', 'tall')),
   position   INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS clients_position_idx ON clients (position);
+
+-- Added after the table shipped, so existing databases pick it up too.
+ALTER TABLE clients ADD COLUMN IF NOT EXISTS size TEXT NOT NULL DEFAULT 'small';

@@ -21,6 +21,8 @@ export type Client = {
   photo: string | null;
   /** Percent of the default logo size. */
   scale: number;
+  /** How many columns the tile spans and how tall it is. */
+  size: "small" | "wide" | "tall";
   position: number;
 };
 
@@ -44,6 +46,7 @@ const seedClients: Client[] = clients.items.map((c, i) => ({
   logo: c.logo,
   photo: c.photo,
   scale: 100,
+  size: "small" as const,
   position: i,
 }));
 
@@ -94,7 +97,7 @@ export function getGallery(): Promise<GalleryItem[]> {
 
 export function getClients(): Promise<Client[]> {
   return safely(seedClients, () =>
-    query<Client>("SELECT id, name, logo, photo, scale, position FROM clients ORDER BY position, id"),
+    query<Client>("SELECT id, name, logo, photo, scale, size, position FROM clients ORDER BY position, id"),
   );
 }
 
@@ -134,5 +137,5 @@ export function getAllGallery(): Promise<GalleryItem[]> {
 }
 
 export function getAllClients(): Promise<Client[]> {
-  return query<Client>("SELECT id, name, logo, photo, scale, position FROM clients ORDER BY position, id");
+  return query<Client>("SELECT id, name, logo, photo, scale, size, position FROM clients ORDER BY position, id");
 }

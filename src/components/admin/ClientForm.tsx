@@ -86,8 +86,17 @@ export function ClientForm({ item }: { item: Client }) {
         </label>
       </div>
 
+      <label className={styles.field}>
+        <span>Kachelformat</span>
+        <select name="size" defaultValue={item.size}>
+          <option value="small">Klein (3 Spalten)</option>
+          <option value="wide">Breit (6 Spalten)</option>
+          <option value="tall">Hoch (3 Spalten, doppelt hoch)</option>
+        </select>
+      </label>
+
       <div className={styles.field}>
-        <span>Größe: {scale}%</span>
+        <span>Logogröße: {scale}%</span>
         <input
           type="range"
           name="scale"

@@ -4,6 +4,12 @@ import { getClients } from "@/lib/content";
 import { PlaceholderBadge } from "./PlaceholderBadge";
 import styles from "./Clients.module.css";
 
+const SIZE: Record<string, string> = {
+  small: styles.small,
+  wide: styles.wide,
+  tall: styles.tall,
+};
+
 export async function Clients() {
   const items = await getClients();
 
@@ -15,33 +21,31 @@ export async function Clients() {
         </h2>
         <p className="lead">{clients.text}</p>
         <ul className={styles.grid}>
-          {items.map((c) => (
-            <li
-              key={c.id}
-              className={`${styles.tile} ${!c.logo && !c.photo ? "placeholder" : ""}`}
-              tabIndex={0}
-              // Each mark gets its own size, so wide wordmarks and square marks can both sit right.
-              style={{ "--logo-scale": c.scale / 100 } as React.CSSProperties}
-            >
-              <PlaceholderBadge show={!c.logo && !c.photo} />
-              <div className={styles.face}>
+          {items.map((c) => {
+            const empty = !c.logo && !c.photo;
+            return (
+              <li
+                key={c.id}
+                className={`${styles.tile} ${SIZE[c.size] ?? styles.small} ${empty ? "placeholder" : ""}`}
+                tabIndex={0}
+                style={{ "--logo-scale": c.scale / 100 } as React.CSSProperties}
+              >
+                <PlaceholderBadge show={empty} />
+                {c.photo && (
+                  <Image src={c.photo} alt="" fill sizes="(max-width: 700px) 50vw, 25vw" className={styles.shot} />
+                )}
+                {/* Darkens the still so the logo reads; clears on hover to show the work. */}
+                <span className={styles.veil} aria-hidden="true" />
                 {c.logo ? (
                   <div className={styles.logoBox}>
                     <Image src={c.logo} alt={c.name} fill sizes="(max-width: 700px) 50vw, 25vw" className={styles.logo} />
                   </div>
                 ) : (
-                  <span>Logo folgt</span>
+                  <span className={styles.fallback}>{empty ? "Logo folgt" : c.name}</span>
                 )}
-              </div>
-              <div className={`${styles.face} ${styles.back}`}>
-                {c.photo ? (
-                  <Image src={c.photo} alt="" fill sizes="(max-width: 700px) 50vw, 25vw" />
-                ) : (
-                  <span>Projektfoto folgt</span>
-                )}
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
