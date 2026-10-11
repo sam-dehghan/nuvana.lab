@@ -42,6 +42,14 @@ try {
     console.log(`Seeded ${tiles.length} gallery tiles and 8 reels.`);
   }
 
+  const { rows: cl } = await client.query("SELECT count(*)::int AS n FROM clients");
+  if (cl[0].n === 0) {
+    for (let i = 0; i < 8; i++) {
+      await client.query("INSERT INTO clients (name, position) VALUES ($1, $2)", [`Kunde ${i + 1}`, i]);
+    }
+    console.log("Seeded 8 client holders.");
+  }
+
   console.log("Database is up to date.");
 } finally {
   await client.end();

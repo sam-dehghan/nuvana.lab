@@ -397,3 +397,25 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Mirrors .tile and .logo on the public site so the preview is honest. */
+.logoPreview {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  max-width: 260px;
+  padding: 1.5rem;
+  border: 1px solid rgb(28 21 23 / 0.15);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.logoPreview img {
+  width: min(100%, calc(100% * var(--logo-scale, 1)));
+  height: min(100%, calc(60% * var(--logo-scale, 1)));
+  object-fit: contain;
+}

@@ -42,3 +42,17 @@ CREATE TABLE IF NOT EXISTS gallery (
 );
 
 CREATE INDEX IF NOT EXISTS gallery_kind_idx ON gallery (kind, position);
+
+CREATE TABLE IF NOT EXISTS clients (
+  id         SERIAL PRIMARY KEY,
+  name       TEXT NOT NULL DEFAULT '',
+  logo       TEXT,
+  photo      TEXT,
+  -- Percent of the default logo size, so each mark can be nudged until it sits right.
+  scale      INTEGER NOT NULL DEFAULT 100 CHECK (scale BETWEEN 40 AND 160),
+  position   INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS clients_position_idx ON clients (position);
