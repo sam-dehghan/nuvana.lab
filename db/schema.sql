@@ -56,3 +56,14 @@ CREATE TABLE IF NOT EXISTS clients (
 );
 
 CREATE INDEX IF NOT EXISTS clients_position_idx ON clients (position);
+
+CREATE TABLE IF NOT EXISTS testimonial_videos (
+  id         SERIAL PRIMARY KEY,
+  src        TEXT,
+  poster     TEXT,
+  position   INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS testimonial_videos_position_idx ON testimonial_videos (position);

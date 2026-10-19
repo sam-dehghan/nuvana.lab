@@ -50,6 +50,14 @@ try {
     console.log("Seeded 8 client holders.");
   }
 
+  const { rows: tv } = await client.query("SELECT count(*)::int AS n FROM testimonial_videos");
+  if (tv[0].n === 0) {
+    for (let i = 0; i < 2; i++) {
+      await client.query("INSERT INTO testimonial_videos (position) VALUES ($1)", [i]);
+    }
+    console.log("Seeded 2 testimonial video slots.");
+  }
+
   console.log("Database is up to date.");
 } finally {
   await client.end();

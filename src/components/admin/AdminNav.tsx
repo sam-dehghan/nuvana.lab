@@ -2,7 +2,7 @@ import Link from "next/link";
 import { logout } from "@/app/admin/login/actions";
 import styles from "@/app/admin/admin.module.css";
 
-export function AdminNav({ active }: { active: "blog" | "faq" | "gallery" | "clients" }) {
+export function AdminNav({ active }: { active: "blog" | "faq" | "gallery" | "clients" | "testimonials" }) {
   return (
     <header className={styles.topbar}>
       <strong>nuvana.lab Admin</strong>
@@ -18,6 +18,9 @@ export function AdminNav({ active }: { active: "blog" | "faq" | "gallery" | "cli
         </Link>
         <Link href="/admin/clients" aria-current={active === "clients" ? "page" : undefined}>
           Kunden
+        </Link>
+        <Link href="/admin/testimonials" aria-current={active === "testimonials" ? "page" : undefined}>
+          Kundenstimmen
         </Link>
       </nav>
       <div className={styles.topActions}>

@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented here. Format: Keep a Changelog, versioning: SemVer.
 
+## [0.3.2] - 2026-10-19
+
+### Added
+- Kundenstimmen section in the admin: upload a video and a preview still for each slot under "Das sagen unsere Kunden", reorder and delete them. New "Kundenstimmen" tab beside Blog, FAQ, Galerie and Kunden, and a `testimonial_videos` table seeded with the two slots the section shipped with.
+- Video testimonials open in a lightbox instead of playing in place. The tile is a button showing a still; clicking it opens the clip in a modal with sound, and it closes on the X, Escape or a click on the backdrop. Built on a native `<dialog>`, so focus is trapped and returned without hand-rolling it.
+- `poster` on `testimonials.videos`, the still shown on the tile and behind the clip while it loads.
+
+### Changed
+- The testimonial videos read from the database instead of `src/content/site.ts`, and still fall back to the built-in placeholders when the database is unreachable.
+- The clip is only mounted while the lightbox is open, so nothing downloads it on page load, and closing pauses it and rewinds it to the start.
+- The player hides its download, cast and speed controls, and the right-click menu is suppressed. This removes the obvious routes to saving a testimonial; it does not make the file unreachable, since the url is still visible to anyone who looks in the network tab.
+
 ## [0.2.9] - 2026-10-01
 
 ### Added
