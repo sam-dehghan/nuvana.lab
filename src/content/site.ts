@@ -108,9 +108,10 @@ export const team = {
 export const testimonials = {
   title: "Das sagen unsere Kunden",
   text: "Echte Stimmen von Menschen, mit denen wir gearbeitet haben.",
+  /** `poster` is the still shown on the tile and behind the clip while it loads. */
   videos: [
-    { src: null as string | null, placeholder: true },
-    { src: null as string | null, placeholder: true },
+    { src: null as string | null, poster: null as string | null, placeholder: true },
+    { src: null as string | null, poster: null as string | null, placeholder: true },
   ],
   quotes: Array.from({ length: 4 }, (_, i) => ({
     quote: "Hier steht bald eine echte Kundenstimme.",

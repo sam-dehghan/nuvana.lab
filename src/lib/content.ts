@@ -1,6 +1,6 @@
 import "server-only";
 import faqSeed from "@/content/faq-seed.json";
-import { clients, team } from "@/content/site";
+import { clients, team, testimonials } from "@/content/site";
 import { hasDb, query } from "./db";
 
 export type Faq = { id: number; question: string; answer: string; position: number };
@@ -24,6 +24,13 @@ export type Client = {
   position: number;
 };
 
+export type TestimonialVideo = {
+  id: number;
+  src: string | null;
+  poster: string | null;
+  position: number;
+};
+
 export type Post = {
   id: number;
   slug: string;
@@ -44,6 +51,13 @@ const seedClients: Client[] = clients.items.map((c, i) => ({
   logo: c.logo,
   photo: c.photo,
   scale: 100,
+  position: i,
+}));
+
+const seedTestimonialVideos: TestimonialVideo[] = testimonials.videos.map((v, i) => ({
+  id: -(i + 1),
+  src: v.src,
+  poster: v.poster,
   position: i,
 }));
 
@@ -98,6 +112,12 @@ export function getClients(): Promise<Client[]> {
   );
 }
 
+export function getTestimonialVideos(): Promise<TestimonialVideo[]> {
+  return safely(seedTestimonialVideos, () =>
+    query<TestimonialVideo>("SELECT id, src, poster, position FROM testimonial_videos ORDER BY position, id"),
+  );
+}
+
 export function getPublishedPosts(limit = 100): Promise<Post[]> {
   return safely([], () =>
     query<Post>("SELECT * FROM posts WHERE published ORDER BY published_at DESC NULLS LAST, id DESC LIMIT $1", [
@@ -135,4 +155,8 @@ export function getAllGallery(): Promise<GalleryItem[]> {
 
 export function getAllClients(): Promise<Client[]> {
   return query<Client>("SELECT id, name, logo, photo, scale, position FROM clients ORDER BY position, id");
+}
+
+export function getAllTestimonialVideos(): Promise<TestimonialVideo[]> {
+  return query<TestimonialVideo>("SELECT id, src, poster, position FROM testimonial_videos ORDER BY position, id");
 }
